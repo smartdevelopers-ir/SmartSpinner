@@ -22,3 +22,5 @@ add this to dependencies block in build.gradle file :</br>
         />
 ```
 If you set `tint` , `lineColor` and `arrowColor` will be overriden with `tint`.
+</br>
+To change ripple color set `colorControlHighlight` and for bottom line pressed color set `colorControlActive` in theme. 
