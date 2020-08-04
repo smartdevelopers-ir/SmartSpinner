@@ -1,0 +1,3 @@
+include ':SmartSpinner'
+include ':app'
+rootProject.name = "SmartSpinnerProject"
