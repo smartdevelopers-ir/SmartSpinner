@@ -43,8 +43,8 @@ afterEvaluate {
 //                version = version
                 pom {
                     name = 'smart-spinner'
-                    description = 'Create table in android easily'
-                    url = 'https://github.com/smartdevelopers-ir/smart-spinner'
+                    description = 'A TexView with smart spinner background'
+                    url = 'https://github.com/smartdevelopers-ir/SmartSpinner'
 
                     licenses {
                         license {
@@ -60,9 +60,9 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = 'scm:git:git://github.com/smartdevelopers-ir/smart-spinner.git'
-                        developerConnection = 'scm:git:ssh://github.com/smartdevelopers-ir/smart-spinner.git'
-                        url = 'http://github.com/smartdevelopers-ir/smart-spinner'
+                        connection = 'scm:git:git://github.com/smartdevelopers-ir/SmartSpinner.git'
+                        developerConnection = 'scm:git:ssh://github.com/smartdevelopers-ir/SmartSpinner.git'
+                        url = 'http://github.com/smartdevelopers-ir/SmartSpinner'
                     }
                 }
             }
