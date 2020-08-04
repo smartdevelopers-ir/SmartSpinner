@@ -21,4 +21,4 @@ add this to dependencies block in build.gradle file :</br>
         app:roundArrow="true"
         />
 ```
-If you set `tint` , `lineColor` and `arrowColor` will be ovverriden with `tint`.
+If you set `tint` , `lineColor` and `arrowColor` will be overriden with `tint`.
