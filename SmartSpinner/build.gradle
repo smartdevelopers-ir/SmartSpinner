@@ -24,7 +24,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
 
 }
 
@@ -75,6 +75,7 @@ afterEvaluate {
                 artifactId = 'smart-spinner-debug'
 //                version = '1.6'
             }
+
         }
         repositories {
             maven {
@@ -84,13 +85,15 @@ afterEvaluate {
                 url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             }
         }
+        
+
     }
 }
 
 
 
 group = 'ir.smartdevelopers'
-version = '1.0'
+version = '1.2'
 
 signing {
     sign configurations.archives

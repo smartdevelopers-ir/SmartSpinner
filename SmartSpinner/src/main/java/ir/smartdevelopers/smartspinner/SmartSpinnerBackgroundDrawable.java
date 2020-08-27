@@ -18,10 +18,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.ColorUtils;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 public class SmartSpinnerBackgroundDrawable extends Drawable {
 
+    private static final int STYLE_UNDERLINED = 1;
+    private static final int STYLE_NORMAL = 0;
     private Paint trianglePaint,linePaint,ripplePaint;
     private Path trianglePath;
     private float triangleWith;
@@ -37,11 +40,17 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
     private int mDefaultColor=Color.BLACK;
     private int mDirection = View.LAYOUT_DIRECTION_LTR;
     private boolean mRoundArrow=false;
+    private int mDeactivateColor=0;
+    private boolean mLastPressed=false;
+    private int mStyle=STYLE_NORMAL;
 
+
+    private boolean enabled=true;
 
     public SmartSpinnerBackgroundDrawable(Context context) {
         Resources resources=context.getResources();
         mArrowColor=mLineColor=mDefaultColor;
+//        mDeactivateDefaultColor = ColorUtils.setAlphaComponent(mDefaultColor,24);
         int triangleDpWidth = 10;
         float arrowSize= TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, triangleDpWidth,resources.getDisplayMetrics());
         setArrowSize((int) arrowSize);
@@ -60,6 +69,7 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
         int defaultPressColor = typedValue.data;
         context.getTheme().resolveAttribute(R.attr.colorControlHighlight,typedValue,true);
         int rippleColor = typedValue.data;
+
         //<editor-fold desc="triangle">
         trianglePaint=new Paint(Paint.ANTI_ALIAS_FLAG);
         trianglePaint.setColor(mArrowColor);
@@ -104,27 +114,45 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
 
     @Override
     protected boolean onStateChange(int[] state) {
+        if (!enabled){
+            int lineDeactivateColor=ColorUtils.setAlphaComponent(mLineColor,38);
+            int arrowDeactivateColor=ColorUtils.setAlphaComponent(mArrowColor,38);
+            if (mDeactivateColor!=0){
+                lineDeactivateColor=mDeactivateColor;
+                arrowDeactivateColor=mDeactivateColor;
+            }
+            linePaint.setColor(lineDeactivateColor);
+            trianglePaint.setColor(arrowDeactivateColor);
+            return true;
+        }
         boolean pressed=false;
+
+
         for (int s:state) {
             if (s == android.R.attr.state_pressed) {
-
                 pressed=true;
                 break;
 //            invalidateSelf();
             }
+
         }
-        if (pressed){
-            linePaint.setColor(mPressedColor);
-            linePaint.setStrokeWidth(lineStrokeWidth*3);
-            stopPressed=false;
-            animateRipplePress();
-        }else {
-            linePaint.setColor(mLineColor);
-            linePaint.setStrokeWidth(lineStrokeWidth);
-            stopPressed=true;
-            if (!isAnimating)
-            hideRipple();
-        }
+
+
+            if (pressed) {
+                linePaint.setColor(mPressedColor);
+                linePaint.setStrokeWidth(lineStrokeWidth * 3);
+                stopPressed = false;
+                mLastPressed=true;
+                animateRipplePress();
+            } else if (mLastPressed){
+                mLastPressed=false;
+                linePaint.setColor(mLineColor);
+                linePaint.setStrokeWidth(lineStrokeWidth);
+                stopPressed = true;
+                if (!isAnimating)
+                    hideRipple();
+            }
+
 
         return true;
 
@@ -235,8 +263,9 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
         trianglePath.close();
         canvas.drawPath(trianglePath,trianglePaint);
 
-        canvas.drawLine(rect.left,rect.bottom-lineStrokeWidth,rect.right,rect.bottom-lineStrokeWidth,linePaint);
-
+        if (mStyle==STYLE_UNDERLINED) {
+            canvas.drawLine(rect.left, rect.bottom - lineStrokeWidth, rect.right, rect.bottom - lineStrokeWidth, linePaint);
+        }
 
 
     }
@@ -343,4 +372,27 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
 
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public int getDeactivateColor() {
+        return mDeactivateColor;
+    }
+
+    public void setDeactivateColor(int deactivateColor) {
+        mDeactivateColor = deactivateColor;
+    }
+
+    public int getStyle() {
+        return mStyle;
+    }
+
+    public void setStyle(int style) {
+        mStyle = style;
+    }
 }

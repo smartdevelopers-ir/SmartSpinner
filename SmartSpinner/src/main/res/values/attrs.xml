@@ -4,7 +4,13 @@
         <attr name="tint"/>
         <attr name="arrowColor" format="color|reference"/>
         <attr name="lineColor" format="color|reference"/>
+        <attr name="deactivateColor" format="color|reference"/>
         <attr name="arrowSize" format="dimension|reference"/>
         <attr name="roundArrow" format="boolean|reference"/>
+        <attr name="android:enabled"/>
+        <attr name="spStyle" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="underlined" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

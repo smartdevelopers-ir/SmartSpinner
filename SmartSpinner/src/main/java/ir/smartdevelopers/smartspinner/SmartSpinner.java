@@ -14,8 +14,10 @@ public class SmartSpinner extends AppCompatTextView {
     private int mTint =0;
     private int mLineColor =0;
     private int mArrowColor =0;
+    private int mDeactivateColor=0;
     private int mArrowSize =-1;
     private boolean mRoundArrow;
+    private int mStyle=0;
     public SmartSpinner(Context context) {
         super(context);
         init(context,null);
@@ -42,14 +44,21 @@ public class SmartSpinner extends AppCompatTextView {
             typedArray=context.obtainStyledAttributes( attributeSet,R.styleable.SmartSpinner);
             mLineColor =typedArray.getColor(R.styleable.SmartSpinner_lineColor,0);
             mArrowColor =typedArray.getColor(R.styleable.SmartSpinner_arrowColor,0);
+            mDeactivateColor =typedArray.getColor(R.styleable.SmartSpinner_deactivateColor,0);
             mTint =typedArray.getColor(R.styleable.SmartSpinner_tint,0);
             mArrowSize =typedArray.getDimensionPixelSize(R.styleable.SmartSpinner_arrowSize,-1);
             roundArrow=typedArray.getBoolean(R.styleable.SmartSpinner_roundArrow,false);
+            boolean enabled=typedArray.getBoolean(R.styleable.SmartSpinner_android_enabled,true);
+            setEnabled(enabled);
+            mStyle=typedArray.getInt(R.styleable.SmartSpinner_spStyle,0);
+
             typedArray.recycle();
         }
         spinnerBackground.setDirection(mDirection);
         spinnerBackground.setLineColor(mLineColor);
         spinnerBackground.setArrowColor(mArrowColor);
+        spinnerBackground.setDeactivateColor(mDeactivateColor);
+        spinnerBackground.setStyle(mStyle);
         if (mTint !=0) {
             spinnerBackground.setTint(mTint);
         }
@@ -62,6 +71,12 @@ public class SmartSpinner extends AppCompatTextView {
     }
 
 
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        if (spinnerBackground!=null)
+        spinnerBackground.setEnabled(enabled);
+    }
 
     public int getTint() {
         return mTint;
@@ -103,5 +118,12 @@ public class SmartSpinner extends AppCompatTextView {
         mRoundArrow = roundArrow;
         spinnerBackground.setRoundArrow(mRoundArrow);
         postInvalidate();
+    }
+    public int getDeactivateColor() {
+        return mDeactivateColor;
+    }
+
+    public void setDeactivateColor(int deactivateColor) {
+        mDeactivateColor = deactivateColor;
     }
 }
