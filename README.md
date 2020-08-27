@@ -19,6 +19,7 @@ add this to dependencies block in build.gradle file :</br>
         app:lineColor="@color/colorPrimaryDark"
         app:arrowColor="#304FFE"
         app:roundArrow="true"
+        app:spStyle="underlined"
         />
 ```
 If you set `tint` , `lineColor` and `arrowColor` will be overriden with `tint`.
