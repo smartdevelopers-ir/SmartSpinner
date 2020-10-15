@@ -242,7 +242,7 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
     @Override
     public void draw(@NonNull Canvas canvas) {
         Rect rect=getBounds();
-        Log.v("TTT",rect.toString());
+//        Log.v("TTT",rect.toString());
         float cTriangleY=((rect.bottom)/2f);
         float cTriangleX=(triangleWith/2)+triangleMarginHorizontal;
         float startTriangleY=cTriangleY-triangleHeight/2;
