@@ -3,7 +3,7 @@ A TextView that have a spinner background that can be customizing .Like line col
 An important feature is RTl support .</br>
 # Importing :</br>
 add this to dependencies block in build.gradle file :</br>
-<pre>implementation 'ir.smartdevelopers:smart-spinner:1.0'</pre></br>
+<pre>implementation 'com.github.smartdevelopers-ir:SmartSpinner:1.5.0'</pre></br>
 ![Image](https://github.com/smartdevelopers-ir/SmartSpinner/blob/master/images/spinner.png)
 # Usage :
 ```xml
