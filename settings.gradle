@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 include ':SmartSpinner'
 include ':app'
 rootProject.name = "SmartSpinnerProject"
+include ':app:myapplication'

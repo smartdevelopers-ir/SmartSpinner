@@ -10,9 +10,9 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -65,9 +65,9 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
         paddingTop=paddingBottom;
 
         TypedValue typedValue=new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorControlActivated,typedValue,true);
+        context.getTheme().resolveAttribute(androidx.appcompat.R.attr.colorControlActivated,typedValue,true);
         int defaultPressColor = typedValue.data;
-        context.getTheme().resolveAttribute(R.attr.colorControlHighlight,typedValue,true);
+        context.getTheme().resolveAttribute(androidx.appcompat.R.attr.colorControlHighlight,typedValue,true);
         int rippleColor = typedValue.data;
 
         //<editor-fold desc="triangle">
@@ -238,21 +238,27 @@ public class SmartSpinnerBackgroundDrawable extends Drawable {
     public ConstantState getConstantState() {
         return super.getConstantState();
     }
-
+    private float cTriangleY;
+//    private float cTriangleX;
+    private float startTriangleY;
+    private float startTriangleX;
+    private float cx;
     @Override
     public void draw(@NonNull Canvas canvas) {
+//        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.MULTIPLY);
+        trianglePath.reset();
         Rect rect=getBounds();
 //        Log.v("TTT",rect.toString());
-        float cTriangleY=((rect.bottom)/2f);
-        float cTriangleX=(triangleWith/2)+triangleMarginHorizontal;
-        float startTriangleY=cTriangleY-triangleHeight/2;
-        float startTriangleX=triangleMarginHorizontal;
+        cTriangleY=((rect.bottom)/2f);
+//        cTriangleX=(triangleWith/2)+triangleMarginHorizontal;
+        startTriangleY=cTriangleY-triangleHeight/2;
+        startTriangleX=triangleMarginHorizontal;
         /*if direction is ltr draw triangle from right side*/
         if (mDirection !=View.LAYOUT_DIRECTION_RTL){
             startTriangleX=rect.right - triangleMarginHorizontal - triangleWith;
 
         }
-        float cx=startTriangleX+triangleWith/2;
+        cx=startTriangleX+triangleWith/2;
         canvas.drawCircle(cx, cTriangleY,rippleRadius,ripplePaint);
 
         trianglePath.moveTo(startTriangleX,startTriangleY);

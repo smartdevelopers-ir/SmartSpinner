@@ -2,18 +2,21 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-    namespace 'ir.maktabsoft.smartspinner'
+    compileSdkVersion 36
+    namespace 'ir.smartdevelopers.smartspinner'
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 29
+        targetSdkVersion 36
         versionCode 4
         versionName "1.4"
         setProperty("archivesBaseName","smart-spinner")
         consumerProguardFiles "consumer-rules.pro"
     }
-
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -90,7 +93,7 @@ afterEvaluate {
 
 
 group = 'ir.smartdevelopers'
-version = '1.4'
+version = '1.5'
 
 signing {
     sign configurations.archives
