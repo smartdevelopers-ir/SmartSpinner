@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.annotation.StyleableRes;
 import androidx.appcompat.widget.AppCompatTextView;
 
 public class SmartSpinner extends AppCompatTextView {
@@ -38,7 +39,8 @@ public class SmartSpinner extends AppCompatTextView {
 
         boolean roundArrow=false;
         if (attributeSet!=null){
-            int[] set={android.R.attr.layoutDirection};
+            @StyleableRes
+            int[] set= new int[]{android.R.attr.layoutDirection};
             TypedArray typedArray=context.obtainStyledAttributes(attributeSet,set);
             mDirection =typedArray.getInt(0, View.LAYOUT_DIRECTION_LTR);
             typedArray=context.obtainStyledAttributes( attributeSet,R.styleable.SmartSpinner);
@@ -74,8 +76,9 @@ public class SmartSpinner extends AppCompatTextView {
     @Override
     public void setEnabled(boolean enabled) {
         super.setEnabled(enabled);
-        if (spinnerBackground!=null)
-        spinnerBackground.setEnabled(enabled);
+        if (spinnerBackground!=null) {
+            spinnerBackground.setEnabled(enabled);
+        }
     }
 
     public int getTint() {
